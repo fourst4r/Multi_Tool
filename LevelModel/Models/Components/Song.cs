@@ -49,7 +49,7 @@ namespace LevelModel.Models.Components
                 case RANDOM: return "Random";
 
 
-                default: Debugger.Break(); return string.Empty;
+                default: return string.Empty;
             }
         }
 
