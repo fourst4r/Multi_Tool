@@ -1,0 +1,29 @@
+﻿Fun facts about PR2;
+
+The max block limit was in July 2019 changed from 20k to 50k blocks
+
+The max width of LE is 2 000. To the right you can go 1550 blocks and to the left 450 blocks.
+
+The max height of LE is 2000. Up you can go around 340 blocks and down you can go 1660.
+
+There is a backup of all levels changed on the site:  https://pr2hub.com/backups/
+It saves the levels for 50 days.
+
+Setting the max time of a map to 0, makes the time tick upwards instead.
+
+By placing 2 blocks above each other, 1 of the blocks becomes art. (needs to press restart in LE for it to work, only in LE its visible)
+
+PR2 uses the MD5 hash.
+
+PR2 has 9 items in August of 2019.
+
+PR2 has an open source code on GIT, https://github.com/jacob-grahn/platform-racing-2-server
+
+The TAS tool is also on GIT, https://github.com/fourst4r/PR2-Speedrun-Tools
+
+The advanced LE can be found on, http://naxxol.github.io/  (works slow and also might have been broken after BLS's updates)
+
+It is still possible to play PR2 in a browser with flash support:
+https://archive.org/download/basilisk-portable-with-flash/Basilisk%20Portable%20with%20Flash.zip
+
+
