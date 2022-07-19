@@ -17,16 +17,18 @@ namespace UserInterface.DataStructures.Info
             ArtInfo = new BuildDTO();
         }
 
+        public int GetImagePaddingX => ImageDTO.CENTER_X;
+        public int GetImagePaddingY => ImageDTO.CENTER_Y - 200;
 
         public void SetPaddingX(int x) {
             PaddingX = x;
-            ArtInfo.ImageInfo.PaddingX = x + ImageDTO.CENTER_X;
+            ArtInfo.ImageInfo.PaddingX = x + GetImagePaddingX;
         }
 
         public void SetPaddingY(int y)
         {
             PaddingY = y;
-            ArtInfo.ImageInfo.PaddingY = y + ImageDTO.CENTER_Y - 200;
+            ArtInfo.ImageInfo.PaddingY = y + GetImagePaddingY;
         }
 
     }

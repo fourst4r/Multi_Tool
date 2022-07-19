@@ -130,7 +130,7 @@ namespace UserInterface.Menu.Options
             WriteLine("\t" + (int)ColorSensitivty.VeryLow  + "  -  Very Low");
             WriteLine("\t" + (int)ColorSensitivty.Low      + "  -  Low");
             WriteLine("\t" + (int)ColorSensitivty.Medium   + "  -  Medium");
-            WriteLine("\t" + (int)ColorSensitivty.High     + "  -  High");
+            WriteLine("\t" + (int)ColorSensitivty.High     + "  -  High (recommended)");
             WriteLine("\t" + (int)ColorSensitivty.VeryHigh + "  -  Very High");
             WriteLine();
             

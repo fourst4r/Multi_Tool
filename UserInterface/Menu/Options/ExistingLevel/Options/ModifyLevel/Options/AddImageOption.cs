@@ -1,13 +1,14 @@
 ﻿using System;
 using LevelModel.Models;
+using System.Globalization;
 using Builders.DataStructures.DTO;
 using UserInterface.Handlers;
 using UserInterface.DataStructures.Info;
 using UserInterface.Handlers.FileHandlers;
+using UserInterface.DataStructures.Constants;
 
 using static Builders.DataStructures.DTO.ExtendDTO;
 using static Builders.DataStructures.DTO.ImageDTO;
-using System.Globalization;
 
 namespace UserInterface.Menu.Options.ExistingLevel.Options.ModifyLevel.Options
 {
@@ -17,6 +18,8 @@ namespace UserInterface.Menu.Options.ExistingLevel.Options.ModifyLevel.Options
         private BuildHandler _builder;
         private ExtendInfo _info;
 
+        private enum PositionArtRelativeTo { Default = 1, LastBlock }
+        private PositionArtRelativeTo _relPosition;
 
         internal AddImageOption()
         {
@@ -61,6 +64,9 @@ namespace UserInterface.Menu.Options.ExistingLevel.Options.ModifyLevel.Options
                 _info.ArtInfo.ImageInfo.ColorToIgnore = GetIgnoreColor();
 
             if (IsInputValid)
+                _relPosition = GetPositionOrigin();
+
+            if (IsInputValid)
                 _info.SetPaddingX(ReadInteger("Pixel padding, X-axis:  "));
 
             if (IsInputValid)
@@ -74,6 +80,24 @@ namespace UserInterface.Menu.Options.ExistingLevel.Options.ModifyLevel.Options
 
             if (IsInputValid)
                 UserSettingsHandler.CurrentUser.Token = GetToken();
+        }
+
+        private PositionArtRelativeTo GetPositionOrigin()
+        {
+            WriteLine("Image position relative to: ");
+
+            WriteLine("\t" + (int)PositionArtRelativeTo.Default   + "  -  Default Start Position");
+            WriteLine("\t" + (int)PositionArtRelativeTo.LastBlock + "  -  Last Block");
+
+            Write(Environment.NewLine + "Pick option:  ", UserInputColor);
+
+            string input = ReadInput();
+
+            if (int.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out int value) && Enum.IsDefined(typeof(ImagePosition), value))
+                return (PositionArtRelativeTo)value;
+
+            IsInputValid = false;
+            return PositionArtRelativeTo.Default;
         }
 
         private ImageType GetImageType()
@@ -104,13 +128,21 @@ namespace UserInterface.Menu.Options.ExistingLevel.Options.ModifyLevel.Options
         {
             WriteLine(Environment.NewLine + "\tAdding image...");
 
-            GetArtData();
+            CreateArtData();
+
+           if(_relPosition == PositionArtRelativeTo.LastBlock)
+            {
+                _info.OffsetArtPositionToLastBlock = true;
+                _info.OffetX = -_info.GetImagePaddingX;
+                _info.OffetY = -_info.GetImagePaddingY;
+            }
+
 
             if (IsInputValid)
                 _builder.ExtendLevel(_info);
         }
 
-        private void GetArtData()
+        private void CreateArtData()
         {
             Level artLevel = _builder.CreateLevel(_info.ArtInfo);
 

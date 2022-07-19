@@ -26,5 +26,10 @@ namespace Builders.DataStructures.DTO
 
         public enum ExtendType { Art0 = 1, Art1, Blocks }
 
+        public bool OffsetArtPositionToLastBlock { get; set; }
+
+        public int OffetX {get; set; }
+        public int OffetY { get; set; }
+
     }
 }

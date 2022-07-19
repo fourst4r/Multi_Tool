@@ -86,7 +86,7 @@ namespace Builders.DataStructures.DTO
                 default: return CENTER_X - 50;
             }
 
-            }
+        }
 
         public int GetPaddingY()
         {
