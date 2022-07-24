@@ -6,7 +6,7 @@ namespace UserInterface.DataStructures.Constants
     public class Constants
     {
 
-        public const string APPLICATION_VERSION = "5.2";
+        public const string APPLICATION_VERSION = "5.2.X";
 
         public const string LINK_TO_TUTORIALS = "https://youtu.be/16HxTywHVWM";
 
