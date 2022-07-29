@@ -11,18 +11,9 @@ namespace UserInterface.Handlers
     internal class ParseHandler : IOHandler
     {
 
-
-        private PR2Parser _parser;
-
-
-        public ParseHandler() {
-            _parser = new PR2Parser();
-        }
-
-
         internal Level Parse(string levelData) {
             try {
-                var result = _parser.ParseLevel(levelData);
+                var result = PR2Parser.ParseLevel(levelData);
                 ShowMessages(result.Messages);
                 return result.Level;
             }
@@ -33,7 +24,7 @@ namespace UserInterface.Handlers
 
         internal List<SearchResultLevel> ParseSearchResult(string result) {
             try {
-                var levels = _parser.ParseSearchResult(result);
+                var levels = PR2Parser.ParseSearchResult(result);
 
                 if (levels.Count == 0)
                     WriteLine(Environment.NewLine + "\tNo levels found!" + Environment.NewLine, ErrorColor);
@@ -47,7 +38,7 @@ namespace UserInterface.Handlers
 
         internal List<LoadResultLevel> ParseLoadResult(string result) {
             try {
-                var levels = _parser.ParseLoadResult(result);
+                var levels = PR2Parser.ParseLoadResult(result);
 
                 if (levels.Count == 0)
                     WriteLine(Environment.NewLine + "\tNo levels found!" + Environment.NewLine, ErrorColor);
@@ -61,7 +52,7 @@ namespace UserInterface.Handlers
 
         internal IList<Block> ParseBlocks(string blocks) {
             try {
-                return _parser.ParseBlocks(blocks);
+                return PR2Parser.ParseBlocks(blocks);
             }
             catch (Exception ex) { ShowExceptionToUser(ex); }
 

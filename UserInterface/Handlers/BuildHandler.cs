@@ -17,7 +17,6 @@ namespace UserInterface.Handlers
     {
 
 
-        private PR2Builder    _builder;
         private AccessHandler _accessHandler;
         private ParseHandler  _parseHandler;
 
@@ -26,7 +25,6 @@ namespace UserInterface.Handlers
         {
             _accessHandler = new AccessHandler();
             _parseHandler  = new ParseHandler();
-            _builder       = new PR2Builder();
         }
 
 
@@ -34,7 +32,7 @@ namespace UserInterface.Handlers
         {
             try
             {
-                UploadLevel(_builder.BuildLevel(info));
+                UploadLevel(PR2Builder.BuildLevel(info));
             }
             catch (Exception ex) { ShowExceptionToUser(ex); }
         }
@@ -43,7 +41,7 @@ namespace UserInterface.Handlers
         {
             Level level = null;
 
-            try   { level = _builder.BuildLevel(info);      }
+            try   { level = PR2Builder.BuildLevel(info);      }
             catch (Exception ex) { ShowExceptionToUser(ex); }
 
             return level;
@@ -57,7 +55,7 @@ namespace UserInterface.Handlers
                 info.Level2 = DownloadLevel(info.LevelID2);
 
                 if (info.Level1 != null && info.Level2 != null)
-                    UploadLevel(_builder.Merge(info));
+                    UploadLevel(PR2Builder.Merge(info));
             }
             catch (Exception ex) { ShowExceptionToUser(ex); }
         }
@@ -86,7 +84,7 @@ namespace UserInterface.Handlers
                 if (info.Level == null)
                     return;
 
-                UploadLevel(_builder.Transform(info));
+                UploadLevel(PR2Builder.Transform(info));
             }
             catch (Exception ex) { ShowExceptionToUser(ex); }
         }
@@ -113,7 +111,7 @@ namespace UserInterface.Handlers
                 {
                     info.DTO.Level.Title = info.Title;
                     WriteLine("\tAdding Art...");
-                    _builder.AddArtBlocks(info.DTO);
+                    PR2Builder.AddArtBlocks(info.DTO);
                     UploadLevel(info.DTO.Level);
                 }
             }
@@ -131,7 +129,7 @@ namespace UserInterface.Handlers
 
                 WriteLine("\tMoving Art...");
                 info.DTO.Level.Title = info.Title;
-                _builder.MoveArt(info.DTO);
+                PR2Builder.MoveArt(info.DTO);
                 UploadLevel(info.DTO.Level);
             }
             catch (Exception ex) { ShowExceptionToUser(ex); }
@@ -147,7 +145,7 @@ namespace UserInterface.Handlers
                 info.Level.Blocks.First().Y += info.Y;
 
                 if(info.MoveArt)
-                    _builder.MoveArt(info.ArtDTO);
+                    PR2Builder.MoveArt(info.ArtDTO);
 
                 UploadLevel(info.Level);
             }
@@ -175,7 +173,7 @@ namespace UserInterface.Handlers
 
                 WriteLine("\tRemoving Blocks...");
                 info.DTO.Level.Title = info.Title;
-                _builder.RemoveBlocks(info.DTO);
+                PR2Builder.RemoveBlocks(info.DTO);
                 UploadLevel(info.DTO.Level);
             }
             catch (Exception ex) { ShowExceptionToUser(ex); }
@@ -192,7 +190,7 @@ namespace UserInterface.Handlers
 
                 WriteLine("\tRemoving Art...");
                 info.DTO.Level.Title = info.Title;
-                _builder.RemoveArt(info.DTO);
+                PR2Builder.RemoveArt(info.DTO);
                 UploadLevel(info.DTO.Level);
             }
             catch (Exception ex) { ShowExceptionToUser(ex); }
@@ -235,7 +233,7 @@ namespace UserInterface.Handlers
                 info.BlocksToAdd = _parseHandler.ParseBlocks(info.InputBlocks);
             
 
-            return _builder.Extend(info);
+            return PR2Builder.Extend(info);
         }
 
         private void UploadLevel(Level level) {

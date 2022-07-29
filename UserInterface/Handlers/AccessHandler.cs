@@ -12,16 +12,7 @@ namespace UserInterface.Handlers
     internal class AccessHandler : IOHandler
     {
 
-
         public static readonly string FAILED = string.Empty;
-
-        private PR2Accessor _accessor;
-
-
-        public AccessHandler()
-        {
-            _accessor  = new PR2Accessor();
-        }
 
 
         internal string GetToken(string username, string password, string version, out string errorMsg)
@@ -31,7 +22,7 @@ namespace UserInterface.Handlers
 
             try
             {
-                var tokenInfo = _accessor.GetToken(username, password, version);
+                var tokenInfo = PR2Accessor.GetToken(username, password, version);
 
                 if (!tokenInfo.Success || string.IsNullOrWhiteSpace(tokenInfo.Token))
                 {
@@ -51,7 +42,7 @@ namespace UserInterface.Handlers
         {
             try
             {
-                return _accessor.Pr2Version();
+                return PR2Accessor.Pr2Version();
             }
             catch (Exception ex) { ShowExceptionToUser(ex); return null; }
         }
@@ -59,7 +50,7 @@ namespace UserInterface.Handlers
         {
             try
             {
-                string levelData = _accessor.Download(levelID);
+                string levelData = PR2Accessor.Download(levelID);
 
                 if (string.IsNullOrWhiteSpace(levelData))
                 {
@@ -91,7 +82,7 @@ namespace UserInterface.Handlers
                 WriteLine(Environment.NewLine + "\tUploading...");
                 var levelData    = ConvertToPr2(level);
                 var onLevelExist = OnLevelExist(level);
-                var response     = _accessor.Upload(levelData, onLevelExist);
+                var response     = PR2Accessor.Upload(levelData, onLevelExist);
 
                 if (!string.IsNullOrWhiteSpace(response))
                     WriteLine(Environment.NewLine + "\tResponse from server: \"" + response + "\"");
@@ -103,7 +94,7 @@ namespace UserInterface.Handlers
         {
             try
             {
-                string result = _accessor.Search(userToSearch, page);
+                string result = PR2Accessor.Search(userToSearch, page);
 
                 if (string.IsNullOrWhiteSpace(result))
                     WriteLine(Environment.NewLine + "\tNo levels found!", ErrorColor);
@@ -119,7 +110,7 @@ namespace UserInterface.Handlers
         {
             try
             {
-                string result = _accessor.LoadMyLevels(UserSettingsHandler.CurrentUser.Token);
+                string result = PR2Accessor.LoadMyLevels(UserSettingsHandler.CurrentUser.Token);
 
                 if (result == null || result.Length == 0)
                     WriteLine(Environment.NewLine + "\tNo levels found!", ErrorColor);
