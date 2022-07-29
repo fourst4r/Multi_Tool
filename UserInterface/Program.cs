@@ -5,7 +5,6 @@ using UserInterface.Menu;
 
 namespace UserInterface
 {
-    // dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true
     class Program
     {
         static void Main(string[] args)

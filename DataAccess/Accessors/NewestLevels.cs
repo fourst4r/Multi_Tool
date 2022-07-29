@@ -1,19 +1,32 @@
 ﻿using System.Globalization;
+using System.Text;
 
 namespace DataAccess.Accessors
 {
-    internal class NewestLevels : PostAccessor
+    internal class NewestLevels 
     {
 
         private const string SEARCH_LINK = "https://pr2hub.com/files/lists/newest/";
 
-
-        internal NewestLevels(int page)
+        public string Result { get; set; }
+        internal NewestLevels(int page, string token)
         {
-            string link = SEARCH_LINK + page.ToString(CultureInfo.InvariantCulture);
+            string link = SEARCH_LINK 
+                        + page.ToString(CultureInfo.InvariantCulture) 
+                        + GetSearchQuery(token);
 
-            Access(SEARCH_LINK, string.Empty);
+            Result = GetAccessor.Download(link);
         }
 
+        private string GetSearchQuery(string token)
+        {
+            var query = new StringBuilder();
+
+            query.Append("?rand=");
+            query.Append("&token=");
+            query.Append(token);
+
+            return query.ToString(); ;
+        }
     }
 }

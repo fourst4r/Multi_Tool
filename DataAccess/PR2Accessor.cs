@@ -11,7 +11,7 @@ namespace DataAccess
 
         public static string Search(string username, int page) => new SearchLevels(username, page).Result;
 
-        public static string Newest(int page) => new NewestLevels(page).Result;
+        public static string Newest(int page, string token) => new NewestLevels(page, token).Result;
 
         public static string Upload(string levelData, Action<LevelExistArg> onLevelExist) => new UploadLevel(levelData, onLevelExist).Result;
 
