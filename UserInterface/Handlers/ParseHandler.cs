@@ -13,7 +13,7 @@ namespace UserInterface.Handlers
 
         internal Level Parse(string levelData) {
             try {
-                var result = PR2Parser.ParseLevel(levelData);
+                var result = PR2Parser.Level(levelData);
                 ShowMessages(result.Messages);
                 return result.Level;
             }
@@ -24,7 +24,7 @@ namespace UserInterface.Handlers
 
         internal List<SearchResultLevel> ParseSearchResult(string result) {
             try {
-                var levels = PR2Parser.ParseSearchResult(result);
+                var levels = PR2Parser.SearchResult(result);
 
                 if (levels.Count == 0)
                     WriteLine(Environment.NewLine + "\tNo levels found!" + Environment.NewLine, ErrorColor);
@@ -38,7 +38,7 @@ namespace UserInterface.Handlers
 
         internal List<LoadResultLevel> ParseLoadResult(string result) {
             try {
-                var levels = PR2Parser.ParseLoadResult(result);
+                var levels = PR2Parser.LoadResult(result);
 
                 if (levels.Count == 0)
                     WriteLine(Environment.NewLine + "\tNo levels found!" + Environment.NewLine, ErrorColor);
@@ -52,7 +52,7 @@ namespace UserInterface.Handlers
 
         internal IList<Block> ParseBlocks(string blocks) {
             try {
-                return PR2Parser.ParseBlocks(blocks);
+                return PR2Parser.Blocks(blocks);
             }
             catch (Exception ex) { ShowExceptionToUser(ex); }
 
