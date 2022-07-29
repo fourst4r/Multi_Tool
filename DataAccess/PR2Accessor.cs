@@ -4,20 +4,22 @@ using DataAccess.DataStructures;
 
 namespace DataAccess
 {
-    public class PR2Accessor 
+    public static class PR2Accessor 
     {
 
-        public string Download(int levelID) =>  new DownloadLevel(levelID).Result;
+        public static string Download(int levelID) =>  new DownloadLevel(levelID).Result;
 
-        public string Search(string username, int page) => new SearchLevels(username, page).Result;
+        public static string Search(string username, int page) => new SearchLevels(username, page).Result;
 
-        public string Upload(string levelData, Action<LevelExistArg> onLevelExist) => new UploadLevel(levelData, onLevelExist).Result;
+        public static string Newest(int page) => new NewestLevels(page).Result;
 
-        public string LoadMyLevels(string token) => new LoadMyLevels(token).Result;
+        public static string Upload(string levelData, Action<LevelExistArg> onLevelExist) => new UploadLevel(levelData, onLevelExist).Result;
 
-        public VersionInfo Pr2Version() => new VersionFetcher().VersionInfo;
+        public static string LoadMyLevels(string token) => new LoadMyLevels(token).Result;
 
-        public TokenInfo GetToken(string username, string password, string version) => new TokenFetcher(username, password, version).Result;
+        public static VersionInfo Pr2Version() => new VersionFetcher().VersionInfo;
+
+        public static TokenInfo GetToken(string username, string password, string version) => new TokenFetcher(username, password, version).Result;
 
     }
 }

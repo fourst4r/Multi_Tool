@@ -19,7 +19,6 @@ namespace Parsers.Parsers
             if (double.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out double value))
                 return value;
 
-            Debugger.Break();
             return ERROR;
         }
 
@@ -27,7 +26,6 @@ namespace Parsers.Parsers
             if (int.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out int value))
                 return value;
 
-            Debugger.Break();
             return ERROR;
         }
 
@@ -41,7 +39,6 @@ namespace Parsers.Parsers
             if (s.Equals("false", StringComparison.InvariantCultureIgnoreCase))
                 return false;
 
-            Debugger.Break();
             return UNKNOWN;
         }
 

@@ -42,8 +42,6 @@ namespace Parsers.Parsers
             {
                 action?.Invoke(value);
             }
-            else
-                Debugger.Break();
         }
 
         protected void BuildAttributeParser()

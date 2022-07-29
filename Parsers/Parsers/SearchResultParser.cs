@@ -54,8 +54,6 @@ namespace Parsers.Parsers
             {
                 if (_parser.TryGetValue(field.Name.ToLower(CultureInfo.InvariantCulture), out Action<string, SearchResultLevel> action))
                     action.Invoke(field.Value.ToString(), currentLevel);
-                else
-                    Debugger.Break();
             }
 
             Levels.Add(currentLevel);

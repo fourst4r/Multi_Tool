@@ -52,7 +52,7 @@ namespace LevelModel.Models.Components
                 case SWORD:       return "Sword";
                 case ICE_WAVE:    return "Ice Wave";
 
-                default: Debugger.Break();  return "Unknown";
+                default: return "Unknown";
             }
         }
 
@@ -80,7 +80,7 @@ namespace LevelModel.Models.Components
             if (itemName.StartsWith("ice wave", StringComparison.InvariantCultureIgnoreCase))
                 return ICE_WAVE;
 
-            Debugger.Break(); return NONE;
+            return NONE;
         }
 
 

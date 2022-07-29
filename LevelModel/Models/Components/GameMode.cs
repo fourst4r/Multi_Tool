@@ -41,7 +41,7 @@ namespace LevelModel.Models.Components
                 case "h":
                 case "hat": return "Hat Attack";
 
-                default: Debugger.Break(); return string.Empty;
+                default: return string.Empty;
             }
         }
 

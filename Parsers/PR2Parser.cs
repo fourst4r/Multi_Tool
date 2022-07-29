@@ -6,16 +6,16 @@ using Parsers.Parsers;
 
 namespace Parsers
 {
-    public class PR2Parser
+    public static class PR2Parser
     {
 
-        public LevelDTO ParseLevel(string data) => new LevelParser(data).Result;
+        public static LevelDTO ParseLevel(string data) => new LevelParser(data).Result;
 
-        public List<SearchResultLevel> ParseSearchResult(string result) => new SearchResultParser(result).Levels;
+        public static List<SearchResultLevel> ParseSearchResult(string result) => new SearchResultParser(result).Levels;
 
-        public List<LoadResultLevel> ParseLoadResult(string result) => new LoadResultParser(result).Levels;
+        public static List<LoadResultLevel> ParseLoadResult(string result) => new LoadResultParser(result).Levels;
 
-        public IList<Block> ParseBlocks(string blocks) => new BlockParser(blocks).Result;
+        public static List<Block> ParseBlocks(string blocks) => new BlockParser(blocks).Result;
 
     }
 }

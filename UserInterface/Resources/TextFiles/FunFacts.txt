@@ -21,7 +21,7 @@ PR2 has an open source code on GIT, https://github.com/jacob-grahn/platform-raci
 
 The TAS tool is also on GIT, https://github.com/fourst4r/PR2-Speedrun-Tools
 
-The advanced LE can be found on, http://naxxol.github.io/  (works slow and also might have been broken after BLS's updates)
+The advanced LE can be found on, http://naxxol.github.io/  (broken after BLS's updates)
 
 It is still possible to play PR2 in a browser with flash support:
 https://archive.org/download/basilisk-portable-with-flash/Basilisk%20Portable%20with%20Flash.zip

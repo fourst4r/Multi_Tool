@@ -67,8 +67,6 @@ namespace Parsers.Parsers
             {
                 action?.Invoke(value);
             }
-            else
-                Debugger.Break();
         }
 
         //All attributes are extended with an ID in searchResult, this removes the ID

@@ -9,7 +9,7 @@ namespace Parsers.Parsers
     {
 
 
-        public IList<Block> Result { get; set; }
+        public List<Block> Result { get; set; }
 
         private int _previousBlockID;
 

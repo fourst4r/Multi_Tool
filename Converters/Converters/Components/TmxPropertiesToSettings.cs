@@ -121,7 +121,7 @@ namespace Converters.Converters.Components
             _isADownloadedLevel = true;
             if (levelData != null)
             {
-                var result    =  new PR2Parser().ParseLevel(levelData);
+                var result    = PR2Parser.ParseLevel(levelData);
                 LevelSettings = result?.Level;
                 _messages.Add(result?.Messages);
 
