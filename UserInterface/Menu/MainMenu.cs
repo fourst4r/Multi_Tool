@@ -29,6 +29,7 @@ namespace UserInterface.Menu
 
         private void Init()
         {
+            Console.Title = "PR2 Multi Tool";
             MyPaths.CreateOutputFolders();
             UserSettingsHandler.Init();
             ShowIntroText();

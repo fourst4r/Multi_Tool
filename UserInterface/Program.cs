@@ -9,8 +9,6 @@ namespace UserInterface
     {
         static void Main(string[] args)
         {
-            Console.Title = "PR2 Multi Tool";
-
             new MainMenu().Start();
         }
 
