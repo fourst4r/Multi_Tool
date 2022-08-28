@@ -40,26 +40,29 @@ namespace Converters.Converters
             string cowboyChance = level.CowboyChance.ToString(CultureInfo.InvariantCulture);
             string hash         = GenerateHash(level.Title + username.ToLower(CultureInfo.InvariantCulture) + data + HashSalt);
             string overwrite    = _info.OverWrite ? "1" : "0";
+            string newest       = _info.Newest ? "1" : "0";
 
-            return EncodeAttribute("credits")            + "=" + EncodeAttribute(level.Credits)    + "&" +
-                   EncodeAttribute("live")               + "=" + EncodeAttribute(published)        + "&" + 
-                   EncodeAttribute("max_time")           + "=" + EncodeAttribute(maxTime)          + "&" +
-                   EncodeAttribute("time")               + "=" + EncodeAttribute(time)             + "&" +
-                   EncodeAttribute("items")              + "=" + EncodeAttribute(items)            + "&" + 
-                   EncodeAttribute("title")              + "=" + EncodeAttribute(level.Title)      + "&" + 
-                   EncodeAttribute("gravity")            + "=" + EncodeAttribute(gravity)          + "&" + 
-                   EncodeAttribute("hash")               + "=" + EncodeAttribute(hash)             + "&" + 
-                   EncodeAttribute("data")               + "=" + EncodeAttribute(data)             + "&" + 
-                   EncodeAttribute("note")               + "=" + EncodeAttribute(note)             + "&" + 
-                   EncodeAttribute("min_level")          + "=" + EncodeAttribute(minLevel)         + "&" + 
-                   EncodeAttribute("song")               + "=" + EncodeAttribute(song)             + "&" + 
-                   EncodeAttribute("hasPass")            + "=" + EncodeAttribute(hasPass)          + "&" + 
-                   EncodeAttribute("passHash")           + "=" + string.Empty                      + "&" + 
-                   EncodeAttribute("badHats")            + "=" + EncodeAttribute(badHats)          + "&" + 
-                   EncodeAttribute("gameMode")           + "=" + EncodeAttribute(gameMode)         + "&" + 
-                   EncodeAttribute("cowboyChance")       + "=" + EncodeAttribute(cowboyChance)     + "&" + 
-                   EncodeAttribute("token")              + "=" + EncodeAttribute(token)            + "&" +
-                   EncodeAttribute("overwrite_existing") + "=" + EncodeAttribute(overwrite);
+
+            return EncodeAttribute("credits")            + "=" + EncodeAttribute(level.Credits)  + "&" +
+                   EncodeAttribute("live")               + "=" + EncodeAttribute(published)      + "&" + 
+                   EncodeAttribute("max_time")           + "=" + EncodeAttribute(maxTime)        + "&" +
+                   EncodeAttribute("time")               + "=" + EncodeAttribute(time)           + "&" +
+                   EncodeAttribute("items")              + "=" + EncodeAttribute(items)          + "&" + 
+                   EncodeAttribute("title")              + "=" + EncodeAttribute(level.Title)    + "&" + 
+                   EncodeAttribute("gravity")            + "=" + EncodeAttribute(gravity)        + "&" + 
+                   EncodeAttribute("hash")               + "=" + EncodeAttribute(hash)           + "&" + 
+                   EncodeAttribute("data")               + "=" + EncodeAttribute(data)           + "&" + 
+                   EncodeAttribute("note")               + "=" + EncodeAttribute(note)           + "&" + 
+                   EncodeAttribute("min_level")          + "=" + EncodeAttribute(minLevel)       + "&" + 
+                   EncodeAttribute("song")               + "=" + EncodeAttribute(song)           + "&" + 
+                   EncodeAttribute("hasPass")            + "=" + EncodeAttribute(hasPass)        + "&" + 
+                   EncodeAttribute("passHash")           + "=" + string.Empty                    + "&" + 
+                   EncodeAttribute("badHats")            + "=" + EncodeAttribute(badHats)        + "&" + 
+                   EncodeAttribute("gameMode")           + "=" + EncodeAttribute(gameMode)       + "&" + 
+                   EncodeAttribute("cowboyChance")       + "=" + EncodeAttribute(cowboyChance)   + "&" + 
+                   EncodeAttribute("token")              + "=" + EncodeAttribute(token)          + "&" +
+                   EncodeAttribute("overwrite_existing") + "=" + EncodeAttribute(overwrite)      +"&" +
+                   EncodeAttribute("to_newest")          + "=" + EncodeAttribute(newest);
         }
 
         private string EncodeAttribute(string text)

@@ -15,5 +15,8 @@ namespace Converters.DataStructures.DTO
 
         public bool OverWrite { get; set; }
 
+        public bool Newest { get; set; }
+
+
     }
 }
