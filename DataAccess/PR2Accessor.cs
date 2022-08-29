@@ -9,7 +9,7 @@ namespace DataAccess
 
         public static string Download(int levelID) =>  new DownloadLevel(levelID).Result;
 
-        public static string Search(string username, int page) => new SearchLevels(username, page).Result;
+        public static string Search(SearchLevelInfo info) => new SearchLevels(info).Result;
 
         public static string Newest(int page, string token) => new NewestLevels(page, token).Result;
 

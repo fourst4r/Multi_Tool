@@ -94,7 +94,7 @@ namespace UserInterface.Handlers
         {
             try
             {
-                string result = PR2Accessor.Search(userToSearch, page);
+                string result = PR2Accessor.Search(new SearchLevelInfo(userToSearch, page));
 
                 if (string.IsNullOrWhiteSpace(result))
                     WriteLine(Environment.NewLine + "\tNo levels found!", ErrorColor);

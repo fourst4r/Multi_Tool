@@ -1,4 +1,7 @@
-﻿using System.Globalization;
+﻿using DataAccess.DataStructures;
+using System;
+using System.Globalization;
+using static DataAccess.DataStructures.SearchLevelInfo;
 
 namespace DataAccess.Accessors
 {
@@ -6,27 +9,27 @@ namespace DataAccess.Accessors
     internal class SearchLevels : PostAccessor
     {
 
-
         private const string SEARCH_LINK = "http://pr2hub.com/search_levels.php?";
 
 
-        internal SearchLevels(string username, int page)
+        internal SearchLevels(SearchLevelInfo info)
         {
-            string searchQuery = GetSearchQuery(username, page);
+            if (info == null)
+                return;
+
+            string searchQuery = GetSearchQuery(info);
 
             Access(SEARCH_LINK, searchQuery);
         }
 
 
-        private string GetSearchQuery(string username, int page)
+        private string GetSearchQuery(SearchLevelInfo info)
         {
-            string searchBy = "user";   // title or user
-            string sortOrder = "desc";  // asc or desc
-            string sortBy = "date";
-
-            string searchQuery = "search_str=" + username + "&mode=" + (searchBy == "Level Title" ? "title" : "user") +
-                "&order=" + sortBy + "&dir=" + sortOrder +
-                "&page=" + page.ToString(CultureInfo.InvariantCulture);
+            string searchQuery = "search_str=" + info.SearchValue
+                + "&mode="  + Enum.GetName(typeof(SearchModeEnum), info.Mode).ToLowerInvariant()
+                + "&order=" + Enum.GetName(typeof(SearchOrderEnum), info.Order).ToLowerInvariant()
+                + "&dir="   + Enum.GetName(typeof(SearchDirectionEnum), info.Direction).ToLowerInvariant()
+                + "&page="  + info.Page.ToString(CultureInfo.InvariantCulture);
 
             return searchQuery;
         }
