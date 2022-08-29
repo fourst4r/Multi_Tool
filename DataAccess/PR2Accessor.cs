@@ -11,7 +11,9 @@ namespace DataAccess
 
         public static string Search(SearchLevelInfo info) => new SearchLevels(info).Result;
 
-        public static string Newest(int page, string token) => new NewestLevels(page, token).Result;
+        public static string Newest(int page) => new NewestLevels(page).Result;
+
+        public static string BestWeek(int page) => new BestWeekLevels(page).Result;
 
         public static string Upload(string levelData, Action<LevelExistArg> onLevelExist) => new UploadLevel(levelData, onLevelExist).Result;
 
