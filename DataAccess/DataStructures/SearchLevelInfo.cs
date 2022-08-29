@@ -5,7 +5,7 @@ namespace DataAccess.DataStructures
     public class SearchLevelInfo
     {
 
-        public enum SearchDirectionEnum { Desc, Asc }
+        public enum SearchDirectionEnum { Descending, Ascending }
         public enum SearchModeEnum { User, Title }
         public enum SearchOrderEnum { Date, Popularity }
 

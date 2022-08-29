@@ -22,13 +22,21 @@ namespace DataAccess.Accessors
             Access(SEARCH_LINK, searchQuery);
         }
 
+        private string GetDirection(SearchDirectionEnum dir)
+        {
+            switch(dir)
+            {
+                case SearchDirectionEnum.Ascending: return "asc";
+                default: return "desc";
+            }
+        }
 
         private string GetSearchQuery(SearchLevelInfo info)
         {
             string searchQuery = "search_str=" + info.SearchValue
                 + "&mode="  + Enum.GetName(typeof(SearchModeEnum), info.Mode).ToLowerInvariant()
                 + "&order=" + Enum.GetName(typeof(SearchOrderEnum), info.Order).ToLowerInvariant()
-                + "&dir="   + Enum.GetName(typeof(SearchDirectionEnum), info.Direction).ToLowerInvariant()
+                + "&dir="   + GetDirection(info.Direction).ToLowerInvariant()
                 + "&page="  + info.Page.ToString(CultureInfo.InvariantCulture);
 
             return searchQuery;
