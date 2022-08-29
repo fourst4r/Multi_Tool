@@ -7,7 +7,7 @@ namespace DataAccess.DataStructures
 
         public enum SearchDirectionEnum { Descending, Ascending }
         public enum SearchModeEnum { User, Title }
-        public enum SearchOrderEnum { Date, Popularity }
+        public enum SearchOrderEnum { Date, Popularity, Rating, Alphabetical }
 
 
         public string SearchValue { get; set; }
@@ -24,7 +24,7 @@ namespace DataAccess.DataStructures
             SearchValue = value ?? string.Empty;
             Mode = SearchModeEnum.User;
             Order = SearchOrderEnum.Date;
-            Direction = SearchDirectionEnum.Desc;
+            Direction = SearchDirectionEnum.Descending;
             Page = page;
         }
 
