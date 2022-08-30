@@ -1,6 +1,7 @@
 ﻿using System;
 using DataAccess.Accessors;
 using DataAccess.DataStructures;
+using static DataAccess.Accessors.VersionFetcher;
 
 namespace DataAccess
 {
@@ -19,7 +20,9 @@ namespace DataAccess
 
         public static string LoadMyLevels(string token) => new LoadMyLevels(token).Result;
 
-        public static VersionInfo Pr2Version() => new VersionFetcher().VersionInfo;
+        public static VersionInfo Pr2Version() => new VersionFetcher().Info;
+
+        public static UserInfo GetUser(int id) => new UserFetcher(id).Info;
 
         public static TokenInfo GetToken(string username, string password, string version) => new TokenFetcher(username, password, version).Result;
 
