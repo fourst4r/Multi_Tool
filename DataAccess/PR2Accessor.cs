@@ -22,7 +22,7 @@ namespace DataAccess
 
         public static VersionInfo Pr2Version() => new VersionFetcher().Info;
 
-        public static UserInfo GetUser(int id) => new UserFetcher(id).Info;
+        public static UserInfo GetUser(uint id) => new UserFetcher(id).Info;
 
         public static TokenInfo GetToken(string username, string password, string version) => new TokenFetcher(username, password, version).Result;
 

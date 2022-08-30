@@ -59,7 +59,7 @@ namespace DataAccess.Accessors
 
             public UserInfo Info { get; private set; }
 
-            public UserFetcher(int id)
+            public UserFetcher(uint id)
             {
                 Info = new UserInfo();
                 var path = "https://pr2hub.com/get_player_info.php?user_id=" + id;
