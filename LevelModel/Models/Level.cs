@@ -108,12 +108,21 @@ namespace LevelModel.Models
 
 
         public void RemoveArt() {
+            RemoveTextArt();
+            RemoveDrawArt();
+        }
+
+        public void RemoveTextArt()
+        {
             TextArt00.Clear();
             TextArt0.Clear();
             TextArt1.Clear();
             TextArt2.Clear();
             TextArt3.Clear();
+        }
 
+        public void RemoveDrawArt()
+        {
             DrawArt00.Clear();
             DrawArt0.Clear();
             DrawArt1.Clear();
