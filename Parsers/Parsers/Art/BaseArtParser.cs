@@ -11,7 +11,7 @@ namespace Parsers.Parsers.Art
         private Messages _messages;
         private readonly string _artType;
 
-        public IList<T> Result { get; set; }
+        public List<T> Result { get; set; }
 
 
         public BaseArtParser(Messages messages, string type) {

@@ -42,7 +42,7 @@ namespace Builders.Builders.ModifyBuilders
             }
         }
 
-        private IList<TextArt> GetArtList() {
+        private List<TextArt> GetArtList() {
 
             switch (_info.ArtType)
             {

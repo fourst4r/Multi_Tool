@@ -35,29 +35,29 @@ namespace LevelModel.Models
 
         public string BackgroundColor { get; set; }
 
-        public IList<Block> Blocks { get; set; }
+        public List<Block> Blocks { get; set; }
 
-        public IList<TextArt> TextArt1 { get; set; }
+        public List<TextArt> TextArt1 { get; set; }
 
-        public IList<TextArt> TextArt2 { get; set; }
+        public List<TextArt> TextArt2 { get; set; }
 
-        public IList<TextArt> TextArt3 { get; set; }
+        public List<TextArt> TextArt3 { get; set; }
 
-        public IList<DrawArt> DrawArt1 { get; set; }
+        public List<DrawArt> DrawArt1 { get; set; }
 
-        public IList<DrawArt> DrawArt2 { get; set; }
+        public List<DrawArt> DrawArt2 { get; set; }
 
-        public IList<DrawArt> DrawArt3 { get; set; }
+        public List<DrawArt> DrawArt3 { get; set; }
 
         public string BackgroundImage { get; set; }
 
-        public IList<TextArt> TextArt0 { get; set; }
+        public List<TextArt> TextArt0 { get; set; }
 
-        public IList<TextArt> TextArt00 { get; set; }
+        public List<TextArt> TextArt00 { get; set; }
 
-        public IList<DrawArt> DrawArt0 { get; set; }
+        public List<DrawArt> DrawArt0 { get; set; }
 
-        public IList<DrawArt> DrawArt00 { get; set; }
+        public List<DrawArt> DrawArt00 { get; set; }
 
         public string Hash { get; set; }
 

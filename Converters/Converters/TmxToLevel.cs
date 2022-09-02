@@ -20,7 +20,7 @@ namespace Converters.Converters
 
         private TmxPropertiesToSettings _settings;
         private string _backgroundColor;
-        private IList<Block> _blocks;
+        private List<Block> _blocks;
         private ToLevelDTO _info;
         private bool _removeArt;
 

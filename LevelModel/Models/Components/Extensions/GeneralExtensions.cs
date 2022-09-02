@@ -8,7 +8,7 @@ namespace LevelModel.Models.Components
     public static class GeneralExtensions
     {
 
-        public static IList<T> Merge<T>(this IEnumerable<T> list, IEnumerable<T> listToAdd) {
+        public static List<T> Merge<T>(this IEnumerable<T> list, IEnumerable<T> listToAdd) {
             list      = list      ?? new List<T>();
             listToAdd = listToAdd ?? new List<T>();
 

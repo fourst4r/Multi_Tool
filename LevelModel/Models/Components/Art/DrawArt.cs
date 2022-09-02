@@ -11,7 +11,7 @@ namespace LevelModel.Models.Components.Art
 
         public bool IsErase { get; set; }
 
-        public IList<int> Movement { get; set; }
+        public List<int> Movement { get; set; }
 
 
         public const string ERASE = "merase";

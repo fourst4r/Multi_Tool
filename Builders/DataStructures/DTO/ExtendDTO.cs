@@ -12,9 +12,9 @@ namespace Builders.DataStructures.DTO
 
         public Level Level { get; set; }
 
-        public IList<DrawArt> ArtToAdd { get; set; }
+        public List<DrawArt> ArtToAdd { get; set; }
 
-        public IList<Block> BlocksToAdd { get; set; }
+        public List<Block> BlocksToAdd { get; set; }
 
         public int PaddingX { get; set; }
 

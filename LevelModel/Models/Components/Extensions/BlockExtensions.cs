@@ -32,13 +32,13 @@ namespace LevelModel.Models.Components
             return (min, max);
         }
 
-        public static void Add(this IList<Block> blocks, int x, int y, int id, string options = "") {
+        public static void Add(this List<Block> blocks, int x, int y, int id, string options = "") {
             var block = new Block(x, y, id, options);
             blocks.Add(block);
         }
 
-        public static IList<Block> Remove(this IList<Block> blocks, Predicate<Block> match) {
-            IList<Block> myReturn = new List<Block>();
+        public static List<Block> Remove(this List<Block> blocks, Predicate<Block> match) {
+            List<Block> myReturn = new List<Block>();
             var padding = Point.Empty;
 
             foreach (var b in blocks) {
@@ -53,7 +53,7 @@ namespace LevelModel.Models.Components
             return myReturn;
         }
 
-        public static void SetStartPosition(this IList<Block> blocks, int x, int? y = null) {
+        public static void SetStartPosition(this List<Block> blocks, int x, int? y = null) {
             if (blocks.Count > 0) {
                 blocks[0].X = x;
 
@@ -62,7 +62,7 @@ namespace LevelModel.Models.Components
             }
         }
 
-        public static Point GetPosition(this IList<Block> blocks, int index) {
+        public static Point GetPosition(this List<Block> blocks, int index) {
             if (blocks.Count > index) {
                 var block = blocks[index];
                 return new Point(block.X, block.Y);
@@ -71,7 +71,7 @@ namespace LevelModel.Models.Components
             throw new ArgumentOutOfRangeException("The index is out of range for the block list.");
         }
 
-        public static string ToPr2String(this IList<Block> blocks) {
+        public static string ToPr2String(this List<Block> blocks) {
             StringBuilder sb = new StringBuilder();
             int lastId = -1;
 

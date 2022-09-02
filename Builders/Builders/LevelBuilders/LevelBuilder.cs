@@ -74,14 +74,14 @@ namespace Builders.Builders.LevelBuilders
             return string.Empty;
         }
 
-        private IList<DrawArt> GetDrawArt1(ImageDTO imageInfo) {
+        private List<DrawArt> GetDrawArt1(ImageDTO imageInfo) {
             if (imageInfo != null && imageInfo.Type == ImageType.Art1)
                 return new ImageToArtBuilder(imageInfo).Result;
             else
                 return new List<DrawArt>();
         }
 
-        private IList<DrawArt> GetDrawArt0(ImageDTO imageInfo)
+        private List<DrawArt> GetDrawArt0(ImageDTO imageInfo)
         {
             if (imageInfo != null && imageInfo.Type == ImageType.Art0)
                 return new ImageToArtBuilder(imageInfo).Result;
@@ -89,7 +89,7 @@ namespace Builders.Builders.LevelBuilders
                 return new List<DrawArt>();
         }
 
-        private IList<Block> GetBlocks()
+        private List<Block> GetBlocks()
         {
             switch (_info.Type)
             {

@@ -88,7 +88,7 @@ namespace Builders.Builders.ModifyBuilders
             level1.TextArt3  = MergeTextArt(level1.TextArt3,  level2.TextArt3,  padding.X, padding.Y);
         }
 
-        private IList<DrawArt> MergeDrawnArt(IList<DrawArt> art1, IList<DrawArt> art2, int xDiff, int yDiff) {
+        private List<DrawArt> MergeDrawnArt(List<DrawArt> art1, List<DrawArt> art2, int xDiff, int yDiff) {
             art2.ForEach(da  => {
                     da.X += xDiff;
                     da.Y += yDiff;
@@ -97,7 +97,7 @@ namespace Builders.Builders.ModifyBuilders
             return art1.Merge(art2);
         }
 
-         private IList<TextArt> MergeTextArt(IList<TextArt> art1, IList<TextArt> art2, int xDiff, int yDiff) {
+         private List<TextArt> MergeTextArt(List<TextArt> art1, List<TextArt> art2, int xDiff, int yDiff) {
             var text = art2?.FirstOrDefault();
 
             if(text == null)
@@ -107,7 +107,7 @@ namespace Builders.Builders.ModifyBuilders
             return art1.Merge(art2);
         }
 
-        private void SetTextStart(IList<TextArt> art1, TextArt text, int xDiff, int yDiff) {
+        private void SetTextStart(List<TextArt> art1, TextArt text, int xDiff, int yDiff) {
             if(art1 == null || art1.Count() == 0) {
                 text.X = (text.X - (Block.START_POSITION.X * PIXELS_PER_BLOCK)) + ((_startPos1.X * PIXELS_PER_BLOCK) + xDiff); 
                 text.Y = (text.Y - (Block.START_POSITION.Y * PIXELS_PER_BLOCK)) + ((_startPos1.Y * PIXELS_PER_BLOCK) + yDiff);

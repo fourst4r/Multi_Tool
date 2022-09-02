@@ -15,7 +15,7 @@ namespace Builders.Builders.LevelBuilders.Types
 
         internal const int DEFAULT_HEIGHT = 13;
 
-        public IList<Block> Blocks { get; set; }
+        public List<Block> Blocks { get; set; }
 
 
         internal StartBlocksBuilder(StartType type, int ySize = DEFAULT_HEIGHT)

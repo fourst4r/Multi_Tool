@@ -21,7 +21,7 @@ namespace Converters.Converters.Components
         private TmxBlocks _tmxBlocks;
 
 
-        public BlocksToTmx(IList<Block> blocks)
+        public BlocksToTmx(List<Block> blocks)
         {
             _tmxBlocks = new TmxBlocks(1);
 
@@ -45,7 +45,7 @@ namespace Converters.Converters.Components
             }
         }
 
-        private void Convert(IList<Block> blocks)
+        private void Convert(List<Block> blocks)
         {
             HandleStartPosition(blocks);
 
@@ -56,7 +56,7 @@ namespace Converters.Converters.Components
             }
         }
 
-        private void HandleStartPosition(IList<Block> blocks) {
+        private void HandleStartPosition(List<Block> blocks) {
             if(blocks != null && blocks.Count() > 0) {
                 var firstBlock = blocks[0];
                 RelativeStartPosition = new Point(firstBlock.X, firstBlock.Y);

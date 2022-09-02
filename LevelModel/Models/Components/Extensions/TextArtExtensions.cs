@@ -10,7 +10,7 @@ namespace LevelModel.Models.Components
     public static class TextArtExtensions
     {
 
-        public static string ToPr2String(this IList<TextArt> art) {
+        public static string ToPr2String(this List<TextArt> art) {
             StringBuilder sb = new StringBuilder();
             int pImageId     = 0;
 

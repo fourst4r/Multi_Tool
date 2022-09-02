@@ -19,7 +19,7 @@ namespace Converters.Converters.Components
         private List<TmxBlockLayer> _layers;
         private List<StartBlockInfo> _startBlocks;
         private Messages _messages;
-        public IList<Block> Blocks { get; set; }
+        public List<Block> Blocks { get; set; }
 
 
         public TmxToBlocks(List<TmxBlockLayer> layers, Point startPosition, Messages messages)

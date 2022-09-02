@@ -14,7 +14,7 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
         private int _startPositionX;
         private int _startPositionY;
 
-        internal IList<DrawArt> Result { get; set; }
+        internal List<DrawArt> Result { get; set; }
 
 
         internal ImageToArtBuilder(ImageDTO imageInfo) : base(imageInfo)

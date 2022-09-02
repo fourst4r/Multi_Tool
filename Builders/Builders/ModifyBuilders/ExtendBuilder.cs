@@ -95,7 +95,7 @@ namespace Builders.Builders.ModifyBuilders
 
         private void ExtendBlocks()
         {
-            IList<Block> blocksToAdd = new List<Block>();
+            List<Block> blocksToAdd = new List<Block>();
 
             for (int i = 0; i < _info.Multiplier; i++)
                 blocksToAdd = blocksToAdd.Merge(_info.BlocksToAdd);
@@ -105,7 +105,7 @@ namespace Builders.Builders.ModifyBuilders
             Result.Blocks = Result.Blocks.Merge(blocksToAdd);
         }
 
-        private (int x, int y) GetOffsetToLastBlock(IList<Block> blocks)
+        private (int x, int y) GetOffsetToLastBlock(List<Block> blocks)
         {
             var fallback = (0,0);
 

@@ -16,7 +16,7 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
         private int _previousY;
         private int _blockID;
 
-        internal IList<Block> Blocks { get; set; }
+        internal List<Block> Blocks { get; set; }
 
 
         internal ImageToBlocksBuilder(ImageDTO imageInfo) : base(imageInfo)

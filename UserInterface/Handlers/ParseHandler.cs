@@ -50,7 +50,7 @@ namespace UserInterface.Handlers
             return null;
         }
 
-        internal IList<Block> ParseBlocks(string blocks) {
+        internal List<Block> ParseBlocks(string blocks) {
             try {
                 return PR2Parser.Blocks(blocks);
             }

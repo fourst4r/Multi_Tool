@@ -14,7 +14,7 @@ namespace Builders.Builders.LevelBuilders.Types
 
         private const int OFFSET_X= -450;
 
-        public IList<Block> Blocks { get; set; }
+        public List<Block> Blocks { get; set; }
 
 
         internal MaxBlockLimitBuilder()

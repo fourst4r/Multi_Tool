@@ -16,7 +16,7 @@ namespace Builders.Builders.LevelBuilders.Types
 
         private static readonly Random _rnd = new Random();
 
-        public IList<Block> Blocks { get; set; }
+        public List<Block> Blocks { get; set; }
 
 
         internal LabyrinthBuilder(int xSize, int ySize)

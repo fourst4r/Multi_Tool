@@ -11,7 +11,7 @@ namespace LevelModel.Models.Components
     public static class DrawArtExtensions
     {
 
-        public static string ToPr2String(this IList<DrawArt> art) {
+        public static string ToPr2String(this List<DrawArt> art) {
             StringBuilder sb = new StringBuilder();
             string pColor    = "0";
             int pSize        = 4;
@@ -27,7 +27,7 @@ namespace LevelModel.Models.Components
             return sb.TrimEnd();
         }
 
-        public static void AddDot(this IList<DrawArt> art, string color, int size, int x, int y) {
+        public static void AddDot(this List<DrawArt> art, string color, int size, int x, int y) {
             var da = new DrawArt();
 
             da.Color = color;
