@@ -1,5 +1,8 @@
 ﻿using SkiaSharp;
 
+using System;
+using System.IO;
+
 using static LevelModel.Models.Components.Block;
 
 namespace Builders.DataStructures.DTO
@@ -24,7 +27,7 @@ namespace Builders.DataStructures.DTO
 
         public enum ImageType { Art0 = 1, Art1, Blocks, None }
 
-
+        public Stream SvgStream { get; set; }
         public SKBitmap Image { get; set; }
 
         public IgnoreColor ColorToIgnore { get; set; }

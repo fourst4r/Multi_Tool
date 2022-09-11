@@ -9,6 +9,7 @@ using UserInterface.DataStructures.Constants;
 
 using static Builders.DataStructures.DTO.ExtendDTO;
 using static Builders.DataStructures.DTO.ImageDTO;
+using SkiaSharp;
 
 namespace UserInterface.Menu.Options.ExistingLevel.Options.ModifyLevel.Options
 {
@@ -27,10 +28,13 @@ namespace UserInterface.Menu.Options.ExistingLevel.Options.ModifyLevel.Options
             _info = new ExtendInfo();
 
             Init();
+
+
+
             GetRequiredInfo();
 
             if (IsInputValid)
-                Extend();
+            Extend();
             else
                 WriteLine(Environment.NewLine + "\tError: Invalid input!", ErrorColor);
         }

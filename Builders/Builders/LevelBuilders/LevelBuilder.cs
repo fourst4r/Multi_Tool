@@ -76,7 +76,7 @@ namespace Builders.Builders.LevelBuilders
 
         private List<DrawArt> GetDrawArt1(ImageDTO imageInfo) {
             if (imageInfo != null && imageInfo.Type == ImageType.Art1)
-                return new ImageToArtBuilder(imageInfo).Result;
+                return new SvgToArtBuilder(imageInfo).Result;
             else
                 return new List<DrawArt>();
         }

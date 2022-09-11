@@ -7,6 +7,7 @@ using LevelModel.Models.Components;
 
 using static Builders.DataStructures.DTO.BuildDTO;
 using static Builders.DataStructures.DTO.ImageDTO;
+using SkiaSharp;
 
 namespace UserInterface.Menu.Options.NewLevel.Options
 {
@@ -23,7 +24,28 @@ namespace UserInterface.Menu.Options.NewLevel.Options
             _info    = new BuildDTO();
 
             GetRequiredInfo();
+            
+            //var paint = new SKPaint();
+            //paint.GetFillPath()
+            //paint.Color = SKColor.Parse("663300");
+            //var bmp = new SKBitmap(500, 500);
+            //bmp.Erase(SKColors.White, SKRectI.Create(500, 500));
+            //var canvas = new SKCanvas(bmp);
+            //canvas.DrawPath(path, paint);
+            //var wstream = SKFileWStream.OpenStream("test.png");
+            //bmp.Encode(wstream, SKEncodedImageFormat.Png, 100);
+            //wstream.Dispose();
 
+            //do
+            //{
+            //    var segment = new SKPath();
+            //    pm.GetSegment(0, pm.Length, segment, true);
+            //    bool fill = paint.GetFillPath(segment) != null;
+            //    Console.WriteLine("fill: " + Convert.ToString(fill));
+            //} while (pm.NextContour());
+            //path.Transform(SKMatrix.MakeScale(15, 15));
+            _info.ImageInfo.SvgStream = GetSvgStream();
+            
             if (IsInputValid)
                 BuildLevel();
             else

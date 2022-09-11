@@ -183,6 +183,34 @@ namespace UserInterface.Menu.Options
             return null;
         }
 
+        protected FileStream GetFileStream(string filepath)
+        {
+            if (filepath == null || filepath.Length == 0)
+                return null;
+
+            try
+            {
+                string path = Path.IsPathRooted(filepath) ? filepath : Path.Combine(USER_IMAGE_FOLDER, filepath);
+                return File.OpenRead(path);
+            }
+            catch (FileNotFoundException) { WriteLine(Environment.NewLine + "\tError: File not found.", ErrorColor); }
+
+            return null;
+        }
+
+        protected Stream GetSvgStream()
+        {
+            Write("SVG file path:  ", UserInputColor);
+            string filepath = ReadInput();
+
+            var fileStream = GetFileStream(filepath);
+            if (fileStream != null)
+                return fileStream;
+
+            IsInputValid = false;
+            return null;
+        }
+
         protected void ShowBlockIdPath(int tabs)
         {
             string msg = "";
