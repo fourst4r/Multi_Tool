@@ -74,48 +74,36 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
             }
         }
 
+        enum FillOpacityPolicy
+        {
+            PreMultiply,
+            Dither,
+            Size1,
+        }
+
         private void RenderPath(SvgPathElement pathElement)
         {
-            const int strokesize = 2;
-            const int fillsize = 1;
             var path = SKPath.ParseSvgPathData(pathElement.PathScript);
-
-            bool shouldFill = true;
-            path.Transform(SKMatrix.MakeScale(5f, 5f));
+            //path.Transform(SKMatrix.MakeScale(5f, 5f));
 
             string fillrule = pathElement.GetAttribute("fill-rule");
             path.FillType = (fillrule == "evenodd") ? SKPathFillType.EvenOdd : SKPathFillType.Winding;
 
-            string strokecolor = GetRGB(pathElement, "stroke");
+            SKColor strokecolor = AttributeToSKColor(pathElement.GetAttribute("stroke"));
+            double strokewidth = pathElement.GetAttribute("stroke-width", 1.0);
 
-            if (strokecolor != null && strokesize > 0)
+            if (strokecolor != null && strokewidth > 1)
             {
-                RenderPathStroke(path, strokesize, strokecolor);
+                RenderPathStroke(path, (int)Math.Round(strokewidth), strokecolor.ToString().Substring(3));
             }
-            
-            //var bounds = path.Bounds;
-            //var bounds = path.TightBounds;
-            //OnStroke?.Invoke(points: new[] {
-            //    new SKPoint(bounds.Top, bounds.Left),
-            //    new SKPoint(bounds.Top, bounds.Right),
-            //    new SKPoint(bounds.Bottom, bounds.Right),
-            //    new SKPoint(bounds.Bottom, bounds.Left),
-            //    new SKPoint(bounds.Top, bounds.Left),
-            //}, size: 1, color: "0000ff", erase: false);
-            //bounds = path.Bounds;
-            //OnStroke?.Invoke(points: new[] {
-            //    new SKPoint(bounds.Top, bounds.Left),
-            //    new SKPoint(bounds.Top, bounds.Right),
-            //    new SKPoint(bounds.Bottom, bounds.Right),
-            //    new SKPoint(bounds.Bottom, bounds.Left),
-            //    new SKPoint(bounds.Top, bounds.Left),
-            //}, size: 1, color: "00ffff", erase: false);
 
-            string fill = GetRGB(pathElement, "fill");
-
-            if (shouldFill && fill != null && fillsize > 0)
+            SKColor fillcolor = AttributeToSKColor(pathElement.GetAttribute("fill"));
+            int fillwidth = 2;
+            double fillopacity = pathElement.GetAttribute("fill-opacity", 1.0);
+            fillcolor = fillcolor.WithAlpha((byte)(fillopacity*255)); // Premultiply. (Are alpha and opacity the same thing?)
+            if (fillcolor != SKColors.Transparent)
             {
-                RenderPathFill2(path, fillsize, fill);
+                RenderPathFill(path, fillwidth, fillcolor, fillopacity, FillOpacityPolicy.Size1);
             }
         }
 
@@ -146,12 +134,14 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
                         break;
                     case SKPathVerb.Quad:
                         Console.WriteLine("Quad");
+                        // TODO: stop this from returning duplicate coords
                         var quad = FlattenQuadratic(pts[0], pts[1], pts[2]);
                         OnStroke?.Invoke(points: quad, size: penSize, color: color, erase: false);
                         penPos = quad[quad.Length - 1];
                         break;
                     case SKPathVerb.Cubic:
                         Console.WriteLine("Cubic");
+                        // TODO: stop this from returning duplicate coords
                         var cubic = FlattenCubic(pts[0], pts[1], pts[2], pts[3]);
                         OnStroke?.Invoke(points: cubic, size: penSize, color: color, erase: false);
                         penPos = cubic[cubic.Length - 1];
@@ -163,38 +153,7 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
             }
         }
 
-        class FillNode
-        {
-            public SKPoint Pos;
-            public FillNode North;
-            public FillNode East;
-            public FillNode South;
-            public FillNode West;
 
-            public FillNode(SKPoint pos, FillNode north = null, FillNode east = null, FillNode south = null, FillNode west = null)
-            {
-                Pos = pos;
-                North = north;
-                East = east;
-                South = south;
-                West = west;
-            }
-        }
-
-        /*
-            procedure backtrack(c) is
-                if reject(P, c) then return
-                if accept(P, c) then output(P, c)
-                s ← first(P, c)
-                while s ≠ NULL do
-                    backtrack(s)
-                    s ← next(P, s)
-         */
-
-        private enum Direction
-        {
-            North, East, South, West
-        }
 
         private void RenderPathFill2(SKPath path, int penSize, string color)
         {
@@ -235,15 +194,6 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
 
                 bool foundNeighbour = false;
 
-                if (fillPtsHash.Contains(north) && !visitedHash.Contains(north))
-                {
-                    stack.Push(north);
-                    visited.Add(north);
-                    visitedHash.Add(north);
-                    fillPts.Remove(north);
-                    fillPtsHash.Remove(north);
-                    foundNeighbour = true;
-                }
                 if (fillPtsHash.Contains(east) && !visitedHash.Contains(east))
                 {
                     stack.Push(east);
@@ -253,6 +203,7 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
                     fillPtsHash.Remove(east);
                     foundNeighbour = true;
                 }
+
                 if (fillPtsHash.Contains(west) && !visitedHash.Contains(west))
                 {
                     stack.Push(west);
@@ -262,16 +213,28 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
                     fillPtsHash.Remove(west);
                     foundNeighbour = true;
                 }
-                if (fillPtsHash.Contains(south) && !visitedHash.Contains(south))
+
+                if (!foundNeighbour)
                 {
-                    stack.Push(south);
-                    visited.Add(south);
-                    visitedHash.Add(south);
-                    fillPts.Remove(south);
-                    fillPtsHash.Remove(south);
-                    foundNeighbour = true;
+                    if (fillPtsHash.Contains(north) && !visitedHash.Contains(north))
+                    {
+                        stack.Push(north);
+                        visited.Add(north);
+                        visitedHash.Add(north);
+                        fillPts.Remove(north);
+                        fillPtsHash.Remove(north);
+                        foundNeighbour = true;
+                    }
+                    if (fillPtsHash.Contains(south) && !visitedHash.Contains(south))
+                    {
+                        stack.Push(south);
+                        visited.Add(south);
+                        visitedHash.Add(south);
+                        fillPts.Remove(south);
+                        fillPtsHash.Remove(south);
+                        foundNeighbour = true;
+                    }
                 }
-                
                 
                 if (!foundNeighbour)
                 {
@@ -280,29 +243,38 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
                 }
             }
             var visitedOrderer = visited.OrderBy(p => p.Y).ThenBy(p => p.X);
-            //visited.Sort((a, b) =>
-            //{
-            //    if (a.Y < b.Y) return -1;
-            //    //if (a.X < b.X && a.Y == b.Y) return -1;
-            //    if (a.Y == b.Y) return 0;
-            //    return 1;
-            //});
-            //visited.Sort((a, b) =>
-            //{
-            //    if (a.X < b.X && a.Y == b.Y) return -1;
-            //    if (a.X > b.X && a.Y == b.Y) return 1;
-            //    return 0;
-            //});
+
             Console.WriteLine("asdas");
         }
 
-        private void RenderPathFill(SKPath path, int penSize, string color)
+        private void RenderPathFill(SKPath path, int penSize, SKColor color, double opacity, FillOpacityPolicy opacityPolicy)
         {
+            string hexcolor = color.ToString().Substring(3);
+            int xinc = 1;
+            int yinc = 1;
+            bool hasOpacity = opacity < 1;
+            if (hasOpacity)
+            {
+                if (opacityPolicy == FillOpacityPolicy.Dither)
+                {
+                    yinc = 2;
+                }
+                else if (opacityPolicy == FillOpacityPolicy.Size1)
+                {
+                    yinc = 2;
+                    penSize = 1;
+                }
+                else if (opacityPolicy == FillOpacityPolicy.PreMultiply)
+                {
+                    hexcolor = SKPMColor.PreMultiply(color).ToString().Substring(3);
+                }
+            }
+
             var bounds = path.Bounds;
-            for (int y = (int)bounds.Top; y < bounds.Bottom; y += 1)
+            for (int y = (int)bounds.Top; y < bounds.Bottom; y += yinc)
             {
                 SKPoint? penBegin = null;
-                for (int x = (int)bounds.Left; x < bounds.Right; x++)
+                for (int x = (int)bounds.Left; x < bounds.Right; x += xinc)
                 {
                     bool inPath = path.Contains(x, y);
                     if (penBegin == null && inPath)
@@ -311,29 +283,53 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
                     }
                     else if (penBegin != null && !inPath)
                     {
-                        OnStroke?.Invoke(points: new[] { penBegin.Value, new SKPoint(x, y) }, size: penSize, color: color, erase: false);
+                        bool wideEnoughToDraw = (int)SKPoint.Distance(penBegin.Value, new SKPoint(x, y)) > 0;
+                        if (wideEnoughToDraw)
+                        {
+                            if (hasOpacity && opacityPolicy == FillOpacityPolicy.Size1)
+                                RenderPathFillTranslucentStroke(penBegin.Value, new SKPoint(x, y), hexcolor);
+                            else
+                                OnStroke?.Invoke(points: new[] { penBegin.Value, new SKPoint(x, y) }, size: penSize, color: hexcolor, erase: false);
+                        }
                         penBegin = null;
                     }
                 }
 
                 if (penBegin != null)
                 {
-                    OnStroke?.Invoke(points: new[] { penBegin.Value, new SKPoint((int)bounds.Right, y) }, size: penSize, color: color, erase: false);
+                    if (hasOpacity && opacityPolicy == FillOpacityPolicy.Size1)
+                        RenderPathFillTranslucentStroke(penBegin.Value, new SKPoint((int)bounds.Right, y), hexcolor);
+                    else
+                        OnStroke?.Invoke(points: new[] { penBegin.Value, new SKPoint((int)bounds.Right, y) }, size: penSize, color: hexcolor, erase: false);
                 }
             }
         }
 
-        private string GetRGB(SvgPathElement element, string prop)
+        void RenderPathFillTranslucentStroke(SKPoint pt1, SKPoint pt2, string hexcolor)
         {
-            string fill2 = element.GetPropertyValue(prop);
-            if (fill2 == "none")
-                return null;
-            var fill5 = new SvgColor(fill2);
-            var rgb = fill5.RgbColor;
-            int red = Convert.ToInt32(rgb.Red.GetFloatValue(CssPrimitiveType.Number));
-            int green = Convert.ToInt32(rgb.Green.GetFloatValue(CssPrimitiveType.Number));
-            int blue = Convert.ToInt32(rgb.Blue.GetFloatValue(CssPrimitiveType.Number));
-            return (red << 16 | green << 8 | blue).ToString("x");
+            var points = new List<SKPoint>();
+            var distance = SKPoint.Distance(pt1, pt2);
+            while (pt1.X < pt2.X)
+            {
+                float advance = Math.Min(3, pt2.X - pt1.X);
+                points.Add(pt1);
+                points.Add(pt1 + new SKPoint(advance, 0));
+                pt1.Offset(3f, 0f);
+            }
+            OnStroke?.Invoke(points: points.ToArray(), size: 1, color: hexcolor, erase: false);
+        }
+
+        private SKColor AttributeToSKColor(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return SKColors.Transparent;
+
+            var rgb = new SvgColor(value).RgbColor;
+            byte red = Convert.ToByte(rgb.Red.GetFloatValue(CssPrimitiveType.Number));
+            byte green = Convert.ToByte(rgb.Green.GetFloatValue(CssPrimitiveType.Number));
+            byte blue = Convert.ToByte(rgb.Blue.GetFloatValue(CssPrimitiveType.Number));
+
+            return new SKColor(red, green, blue);
         }
 
         private IEnumerable<SKPath> SegmentPath(SKPath path)
@@ -372,8 +368,8 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
         static SKPoint[] FlattenCubic(SKPoint pt0, SKPoint pt1, SKPoint pt2, SKPoint pt3)
         {
             int count = (int)Math.Max(1, Length(pt0, pt1) + Length(pt1, pt2) + Length(pt2, pt3));
-            SKPoint[] points = new SKPoint[count];
-
+            var points = new List<SKPoint>();
+            var prevPt = new SKPoint(float.MinValue, float.MinValue);
             for (int i = 0; i < count; i++)
             {
                 float t = (i + 1f) / count;
@@ -385,10 +381,15 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
                           3 * t * (1 - t) * (1 - t) * pt1.Y +
                           3 * t * t * (1 - t) * pt2.Y +
                           t * t * t * pt3.Y;
-                points[i] = new SKPoint(x, y);
+                var pt = new SKPoint((float)Math.Round(x), (float)Math.Round(y));
+                if (SKPoint.Distance(prevPt, pt) >= 1f)
+                {
+                    points.Add(pt);
+                    prevPt = pt;
+                }
             }
 
-            return points;
+            return points.ToArray();
         }
 
         static SKPoint[] FlattenQuadratic(SKPoint pt0, SKPoint pt1, SKPoint pt2)
@@ -403,7 +404,10 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
                 float y = (1 - t) * (1 - t) * pt0.Y + 2 * t * (1 - t) * pt1.Y + t * t * pt2.Y;
                 var pt = new SKPoint((float)Math.Round(x), (float)Math.Round(y));
                 if (SKPoint.Distance(prevPt, pt) >= 1f)
+                {
                     points.Add(pt);
+                    prevPt = pt;
+                }
             }
 
             return points.ToArray();
@@ -540,7 +544,8 @@ namespace Builders.Builders.LevelBuilders.Types.ImageBuilders
             points = AbsoluteToRelative(points);
 
             var da = new DrawArt();
-            da.Color = color;//color.ToString("x");
+            //da.Color = (color.Red << 16 | color.Green << 8 | color.Blue).ToString("x");
+            da.Color = color;
             da.Size = size;
             da.X = (int)points[0].X + _image.GetPaddingX();
             da.Y = (int)points[0].Y + _image.GetPaddingY();
