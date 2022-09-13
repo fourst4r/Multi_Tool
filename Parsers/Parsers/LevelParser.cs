@@ -18,14 +18,6 @@ namespace Parsers.Parsers
         // value indicate that the map has a password
         private const string HAS_PASSWORD = "1";
 
-        private static Dictionary<string, string> _specialTextSymbols = new Dictionary<string, string>()
-        {
-            { "&", "#28" },
-            { "`", "#96" },
-            { ",", "#44" },
-            { "#", "#35" }
-        };
-
 
         internal LevelParser(string data)
         {

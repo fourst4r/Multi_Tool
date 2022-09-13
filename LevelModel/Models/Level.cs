@@ -72,6 +72,7 @@ namespace LevelModel.Models
             { "&", "#38" },
             { "`", "#96" },
             { ",", "#44" },
+            { "-", "#45" },
             { ";", "#59" },
 
             // can't be used
