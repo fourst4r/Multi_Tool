@@ -69,14 +69,12 @@ namespace LevelModel.Models
         private static readonly Dictionary<string, string> _specialTextSymbols = new Dictionary<string, string>()
         {
             { "#", "#35" },
+            { "+", "#43" }, 
             { "&", "#38" },
-            { "`", "#96" },
             { ",", "#44" },
+            { "-", "#45" },
             { ";", "#59" },
-
-            // can't be used
-            { "%", " " },  
-            { "+", " " } 
+            { "`", "#96" },
         };
 
         public enum ArtType 

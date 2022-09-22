@@ -26,6 +26,18 @@ namespace LevelModel.Models.Components.Art
             Y    = NOT_ASSIGNED;
         }
 
+        public DrawArt Clone()
+        {
+            return new DrawArt
+            {
+                Size = Size,
+                IsErase = IsErase,
+                Movement = Movement,
+                X = X,
+                Y = Y,
+                Color = Color,
+            };
+        }
 
     }
 

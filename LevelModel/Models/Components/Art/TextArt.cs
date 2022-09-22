@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Drawing;
+using System.Globalization;
 
 namespace LevelModel.Models.Components.Art
 {
@@ -24,6 +25,20 @@ namespace LevelModel.Models.Components.Art
             Height = NOT_ASSIGNED;
         }
 
+
+        public TextArt Clone()
+        {
+            return new TextArt(IsText)
+            {
+                X = X,
+                Y = Y,
+                Color = Color,
+                Width = Width,
+                Height = Height,    
+                Text = Text,
+                ImageId = ImageId
+            };
+        }
 
     }
 }
